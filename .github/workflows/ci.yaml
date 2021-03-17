@@ -34,18 +34,33 @@ jobs:
               uses: docker://ergebnis/composer-normalize-action:0.8.0
 
     phpstan:
-        name: PHPStan
+        name: PHPStan (${{ matrix.php-version }})
 
         runs-on: ubuntu-latest
 
+        strategy:
+            matrix:
+                php-version:
+                    - '8.0'
+
         steps:
             - name: "Checkout code"
-              uses: actions/checkout@v2
+              uses: actions/checkout@v2.3.4
 
-            - name: PHPStan
-              uses: docker://oskarstark/phpstan-ga:0.12.81
+            - name: Install PHP
+              uses: shivammathur/setup-php@2.10.0
               with:
-                  args: analyse src --level=7
+                  coverage: "none"
+                  php-version: ${{ matrix.php-version }}
+                  tools: composer:v2
+
+            - name: "Composer install"
+              uses: "ramsey/composer-install@1.3.0"
+              with:
+                  composer-options: "--prefer-dist"
+
+            - name: "Run phpstan/phpstan"
+              run: "vendor/bin/phpstan analyse -c phpstan.neon.dist"
 
     tests:
         name: "PHP ${{ matrix.php-version }} + ${{ matrix.dependencies }}"
@@ -68,7 +83,7 @@ jobs:
             - name: "Checkout code"
               uses: actions/checkout@v2
 
-            - name: Install PHP with extensions
+            - name: Install PHP
               uses: shivammathur/setup-php@2.9.0
               with:
                   coverage: "none"
@@ -79,7 +94,7 @@ jobs:
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
             - name: "Composer install"
-              uses: "ramsey/composer-install@v1"
+              uses: "ramsey/composer-install@1.3.0"
               with:
                   dependency-versions: "${{ matrix.dependencies }}"
                   composer-options: "--prefer-dist"
