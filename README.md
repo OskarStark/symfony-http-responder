@@ -101,7 +101,7 @@ final class DownloadController
         $file = '/app/invoices/invoice.pdf';
         
         // or an SplFileObject
-        $file = new \SplFileObject('/app/invoices/invoice.pdf')M
+        $file = new \SplFileObject('/app/invoices/invoice.pdf');
         
         return $this->responder->file($file);
     }
