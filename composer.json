@@ -1,0 +1,44 @@
+{
+    "name": "oskarstark/symfony-http-responder",
+    "type": "library",
+    "description": "This library provides a Symfony responder class, which can be used to render a template, return json or a file and redirect to route/url.",
+    "keywords": [
+        "symfony",
+        "response",
+        "file",
+        "json",
+        "twig"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oskar Stark",
+            "email": "oskarstark@googlemail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "symfony/http-foundation": "^5.0",
+        "symfony/routing": "^5.0",
+        "symfony/serializer": "^5.0",
+        "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "ergebnis/test-util": "^1.4",
+        "friendsofphp/php-cs-fixer": "2.18.3",
+        "phpunit/phpunit": "^9.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "OskarStark\\Symfony\\Http\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OskarStark\\Symfony\\Http\\Tests\\": "tests/"
+        }
+    }
+}
