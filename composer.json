@@ -22,6 +22,7 @@
     ],
     "require": {
         "php": ">=8.0",
+        "phpstan/phpstan": "^0.12.81",
         "symfony/http-foundation": "^5.0",
         "symfony/routing": "^5.0",
         "symfony/serializer": "^5.0",
