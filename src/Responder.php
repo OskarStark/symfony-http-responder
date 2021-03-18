@@ -34,6 +34,16 @@ final class Responder
     }
 
     /**
+     * Create an empty response.
+     *
+     * @param array<string, string|list<string>> $headers
+     */
+    public function empty(int $status = Response::HTTP_NO_CONTENT, array $headers = []): Response
+    {
+        return new Response(null, $status, $headers);
+    }
+
+    /**
      * Render the given twig template and return an HTML response.
      *
      * @param array<mixed>                       $context
@@ -41,7 +51,7 @@ final class Responder
      *
      * @throws TwigError
      */
-    public function render(string $template, array $context = [], int $status = 200, array $headers = []): Response
+    public function render(string $template, array $context = [], int $status = Response::HTTP_OK, array $headers = []): Response
     {
         $content = $this->twig->render($template, $context);
         $response = new Response($content, $status, $headers);
@@ -58,7 +68,7 @@ final class Responder
      *
      * @param array<string, string|list<string>> $headers
      */
-    public function redirect(string $url, int $status = 302, array $headers = []): RedirectResponse
+    public function redirect(string $url, int $status = Response::HTTP_FOUND, array $headers = []): RedirectResponse
     {
         return new RedirectResponse($url, $status, $headers);
     }
@@ -69,7 +79,7 @@ final class Responder
      * @param array<array-key, scalar>    $parameters
      * @param array<string, list<string>> $headers
      */
-    public function route(string $route, array $parameters = [], int $status = 302, array $headers = []): RedirectResponse
+    public function route(string $route, array $parameters = [], int $status = Response::HTTP_FOUND, array $headers = []): RedirectResponse
     {
         $url = $this->urlGenerator->generate($route, $parameters);
 
@@ -82,7 +92,7 @@ final class Responder
      * @param array<string, string|list<string>> $headers
      * @param array<string, mixed>               $context
      */
-    public function json(mixed $data, int $status = 200, array $headers = [], array $context = []): JsonResponse
+    public function json(mixed $data, int $status = Response::HTTP_OK, array $headers = [], array $context = []): JsonResponse
     {
         $json = $this->serializer->serialize($data, 'json', array_merge([
             'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
