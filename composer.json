@@ -30,7 +30,11 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18.3",
         "phpstan/phpstan": "^0.12.82",
-        "phpunit/phpunit": "^9.5.3"
+        "phpunit/phpunit": "^9.5.3",
+        "symfony/psr-http-message-bridge": "^2.1"
+    },
+    "suggest": {
+        "symfony/psr-http-message-bridge": "PSR-15 Request Handler Interface."
     },
     "config": {
         "sort-packages": true
