@@ -44,7 +44,7 @@ final class Responder
     }
 
     /**
-     * Render the given twig template and return an HTML response.
+     * Render the given Twig template and return an HTML response.
      *
      * @param array<mixed>                       $context
      * @param array<string, string|list<string>> $headers
