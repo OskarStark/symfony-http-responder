@@ -86,7 +86,7 @@ final class Psr7Responder
      *
      * @param array<string, string> $headers
      */
-    public function response(string $content = '', int $status = Response::HTTP_FOUND, array $headers = []): ResponseInterface
+    public function response(?string $content = '', int $status = Response::HTTP_FOUND, array $headers = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
             $this->responder->response($content, $status, $headers)
