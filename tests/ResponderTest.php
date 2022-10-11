@@ -99,6 +99,17 @@ final class ResponderTest extends TestCase
     self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
   }
 
+  public function testResponse(): void
+  {
+    $response = $this->responder->response('some content', Response::HTTP_FORBIDDEN, [
+        'Content-Type' => 'text/plain'
+    ]);
+
+    self::assertSame('some content', $response->getContent());
+    self::assertSame(Response::HTTP_FORBIDDEN, $response->getStatusCode());
+    self::assertSame('text/plain', $response->headers->get('Content-Type'));
+  }
+
   public function testRoute(): void
   {
     $this->urlGenerator
