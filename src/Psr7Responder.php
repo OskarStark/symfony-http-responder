@@ -82,6 +82,18 @@ final class Psr7Responder
     }
 
     /**
+     * Returns a Response with given content, status code and headers.
+     *
+     * @param array<string, string> $headers
+     */
+    public function response(string $content = '', int $status = Response::HTTP_FOUND, array $headers = []): ResponseInterface
+    {
+        return $this->psrHttpFactory->createResponse(
+            $this->responder->response($content, $status, $headers)
+        );
+    }
+
+    /**
      * Returns a JsonResponse that uses the serializer component if enabled, or json_encode.
      *
      * @param array<string, string|list<string>> $headers

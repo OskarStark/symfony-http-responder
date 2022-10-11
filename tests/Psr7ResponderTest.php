@@ -94,6 +94,18 @@ final class Psr7ResponderTest extends TestCase
       ]);
     }
 
+    public function testResponse(): void
+    {
+        $this->psrHttpFactory->expects(static::once())
+            ->method('createResponse')
+            ->with(static::isInstanceOf(Response::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
+
+        $this->psr7Responder->response('some content', Response::HTTP_OK, [
+            'Some-Header' => 'some value',
+        ]);
+    }
+
     public function testJson(): void
     {
         $this->serializer

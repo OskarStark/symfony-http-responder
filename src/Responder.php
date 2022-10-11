@@ -87,6 +87,16 @@ final class Responder
     }
 
     /**
+     * Returns a Response with the given content, status code and headers.
+     *
+     * @param array<string, string> $headers
+     */
+    public function response(?string $content = '', int $status = Response::HTTP_FOUND, array $headers = []): Response
+    {
+        return new Response($content, $status, $headers);
+    }
+
+    /**
      * Returns a JsonResponse that uses the serializer component if enabled, or json_encode.
      *
      * @param array<string, string|list<string>> $headers
