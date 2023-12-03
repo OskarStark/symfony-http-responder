@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of oskarstark/symfony-http-responder.
  *
  * (c) Saif Eddin Gmati <azjezz@protonmail.com>
@@ -49,56 +49,56 @@ final class Psr7ResponderTest extends TestCase
 
     public function testEmpty(): void
     {
-        $this->psrHttpFactory->expects(static::once())
-        ->method('createResponse')
-        ->with(static::isInstanceOf(Response::class))
-        ->willReturn($this->createMock(ResponseInterface::class));
+        $this->psrHttpFactory->expects(self::once())
+            ->method('createResponse')
+            ->with(self::isInstanceOf(Response::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->empty();
     }
 
     public function testRender(): void
     {
-        $this->psrHttpFactory->expects(static::once())
-          ->method('createResponse')
-          ->with(static::isInstanceOf(Response::class))
-          ->willReturn($this->createMock(ResponseInterface::class));
+        $this->psrHttpFactory->expects(self::once())
+            ->method('createResponse')
+            ->with(self::isInstanceOf(Response::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->render(
-          'error.html.twig',
-          ['message' => 'Not Found!'],
-          Response::HTTP_NOT_FOUND
-      );
+            'error.html.twig',
+            ['message' => 'Not Found!'],
+            Response::HTTP_NOT_FOUND,
+        );
     }
 
     public function testRedirect(): void
     {
-        $this->psrHttpFactory->expects(static::once())
-          ->method('createResponse')
-          ->with(static::isInstanceOf(RedirectResponse::class))
-          ->willReturn($this->createMock(ResponseInterface::class));
+        $this->psrHttpFactory->expects(self::once())
+            ->method('createResponse')
+            ->with(self::isInstanceOf(RedirectResponse::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->redirect('/user/kpicaza');
     }
 
     public function testRoute(): void
     {
         $this->urlGenerator
-          ->expects(static::once())
-          ->method('generate')
-          ->with('user_profile', ['username' => 'kpicaza'])
-          ->willReturn('/user/kpicaza');
-        $this->psrHttpFactory->expects(static::once())
-          ->method('createResponse')
-          ->with(static::isInstanceOf(RedirectResponse::class))
-          ->willReturn($this->createMock(ResponseInterface::class));
+            ->expects(self::once())
+            ->method('generate')
+            ->with('user_profile', ['username' => 'kpicaza'])
+            ->willReturn('/user/kpicaza');
+        $this->psrHttpFactory->expects(self::once())
+            ->method('createResponse')
+            ->with(self::isInstanceOf(RedirectResponse::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->route('user_profile', [
-          'username' => 'kpicaza',
-      ]);
+            'username' => 'kpicaza',
+        ]);
     }
 
     public function testResponse(): void
     {
-        $this->psrHttpFactory->expects(static::once())
+        $this->psrHttpFactory->expects(self::once())
             ->method('createResponse')
-            ->with(static::isInstanceOf(Response::class))
+            ->with(self::isInstanceOf(Response::class))
             ->willReturn($this->createMock(ResponseInterface::class));
 
         $this->psr7Responder->response('some content', Response::HTTP_OK, [
@@ -109,26 +109,26 @@ final class Psr7ResponderTest extends TestCase
     public function testJson(): void
     {
         $this->serializer
-          ->expects(static::once())
-          ->method('serialize')
-          ->with(['title' => 'Hello, World!'], 'json', [
-              'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
-          ])
-          ->willReturn('{"title": "Hello, World!"}');
-        $this->psrHttpFactory->expects(static::once())
-          ->method('createResponse')
-          ->with(static::isInstanceOf(JsonResponse::class))
-          ->willReturn($this->createMock(ResponseInterface::class));
+            ->expects(self::once())
+            ->method('serialize')
+            ->with(['title' => 'Hello, World!'], 'json', [
+                'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
+            ])
+            ->willReturn('{"title": "Hello, World!"}');
+        $this->psrHttpFactory->expects(self::once())
+            ->method('createResponse')
+            ->with(self::isInstanceOf(JsonResponse::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
 
         $this->psr7Responder->json(['title' => 'Hello, World!']);
     }
 
     public function testFile(): void
     {
-        $this->psrHttpFactory->expects(static::once())
-          ->method('createResponse')
-          ->with(static::isInstanceOf(BinaryFileResponse::class))
-          ->willReturn($this->createMock(ResponseInterface::class));
+        $this->psrHttpFactory->expects(self::once())
+            ->method('createResponse')
+            ->with(self::isInstanceOf(BinaryFileResponse::class))
+            ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->file(__FILE__);
     }
 }

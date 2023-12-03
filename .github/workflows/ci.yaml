@@ -15,7 +15,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.0'
+                    - '8.1'
 
         steps:
             - name: "Checkout code"
@@ -34,7 +34,7 @@ jobs:
                   composer-options: "--prefer-dist"
 
             - name: "Run friendsofphp/php-cs-fixer"
-              run: "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --verbose"
+              run: "vendor/bin/php-cs-fixer fix --diff --verbose"
 
     phpstan:
         name: PHPStan (${{ matrix.php-version }})
@@ -44,7 +44,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.0'
+                    - '8.1'
 
         steps:
             - name: "Checkout code"
@@ -75,7 +75,6 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.0'
                     - '8.1'
                 dependencies:
                     - 'lowest'

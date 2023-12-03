@@ -5,7 +5,7 @@ phpstan: vendor
 
 .PHONY: cs
 cs: vendor
-	php vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --verbose
+	php vendor/bin/php-cs-fixer fix --diff --verbose
 
 .PHONY: test
 test: vendor
