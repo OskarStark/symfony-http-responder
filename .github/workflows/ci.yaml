@@ -8,14 +8,14 @@ name: CI
 
 jobs:
     php-cs-fixer:
-        name: PHP-CS-Fixer (${{ matrix.php-version }})
+        name: PHP-CS-Fixer
 
         runs-on: ubuntu-latest
 
         strategy:
             matrix:
                 php-version:
-                    - '8.1'
+                    - '8.2'
 
         steps:
             - name: "Checkout code"
@@ -37,14 +37,14 @@ jobs:
               run: "vendor/bin/php-cs-fixer fix --diff --verbose"
 
     phpstan:
-        name: PHPStan (${{ matrix.php-version }})
+        name: PHPStan
 
         runs-on: ubuntu-latest
 
         strategy:
             matrix:
                 php-version:
-                    - '8.1'
+                    - '8.2'
 
         steps:
             - name: "Checkout code"
@@ -75,7 +75,7 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - '8.1'
+                    - '8.2'
                 dependencies:
                     - 'lowest'
                     - 'highest'

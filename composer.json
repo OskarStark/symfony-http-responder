@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "symfony/http-foundation": "^5.0.7 || ^6.0",
         "symfony/routing": "^5.0 || ^6.0",
         "symfony/serializer": "^5.0 || ^6.0",
