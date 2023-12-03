@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of oskarstark/symfony-http-responder.
  *
  * (c) Saif Eddin Gmati <azjezz@protonmail.com>
@@ -32,12 +32,12 @@ final class Psr7Responder
     /**
      * Create an empty response.
      *
-     * @param array<string, string|list<string>> $headers
+     * @param array<string, list<string>|string> $headers
      */
     public function empty(int $status = Response::HTTP_NO_CONTENT, array $headers = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->empty($status, $headers)
+            $this->responder->empty($status, $headers),
         );
     }
 
@@ -45,26 +45,26 @@ final class Psr7Responder
      * Render the given Twig template and return an HTML response.
      *
      * @param array<mixed>                       $context
-     * @param array<string, string|list<string>> $headers
+     * @param array<string, list<string>|string> $headers
      *
      * @throws TwigError
      */
     public function render(string $template, array $context = [], int $status = Response::HTTP_OK, array $headers = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->render($template, $context, $status, $headers)
+            $this->responder->render($template, $context, $status, $headers),
         );
     }
 
     /**
      * Returns a RedirectResponse to the given URL.
      *
-     * @param array<string, string|list<string>> $headers
+     * @param array<string, list<string>|string> $headers
      */
     public function redirect(string $url, int $status = Response::HTTP_FOUND, array $headers = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->redirect($url, $status, $headers)
+            $this->responder->redirect($url, $status, $headers),
         );
     }
 
@@ -77,7 +77,7 @@ final class Psr7Responder
     public function route(string $route, array $parameters = [], int $status = Response::HTTP_FOUND, array $headers = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->route($route, $parameters, $status, $headers)
+            $this->responder->route($route, $parameters, $status, $headers),
         );
     }
 
@@ -89,30 +89,30 @@ final class Psr7Responder
     public function response(?string $content = '', int $status = Response::HTTP_FOUND, array $headers = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->response($content, $status, $headers)
+            $this->responder->response($content, $status, $headers),
         );
     }
 
     /**
      * Returns a JsonResponse that uses the serializer component if enabled, or json_encode.
      *
-     * @param array<string, string|list<string>> $headers
+     * @param array<string, list<string>|string> $headers
      * @param array<string, mixed>               $context
      */
     public function json(mixed $data, int $status = Response::HTTP_OK, array $headers = [], array $context = []): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->json($data, $status, $headers, $context)
+            $this->responder->json($data, $status, $headers, $context),
         );
     }
 
     /**
      * Returns a BinaryFileResponse object with original or customized file name and disposition header.
      */
-    public function file(SplFileInfo | string $file, ?string $filename = null, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): ResponseInterface
+    public function file(SplFileInfo|string $file, ?string $filename = null, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
-            $this->responder->file($file, $filename, $disposition)
+            $this->responder->file($file, $filename, $disposition),
         );
     }
 }

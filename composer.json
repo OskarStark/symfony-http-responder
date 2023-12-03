@@ -28,7 +28,7 @@
         "twig/twig": "^2.13 || ^3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.18.3",
+        "ergebnis/php-cs-fixer-config": "^5.0",
         "phpstan/phpstan": "^0.12.82",
         "phpunit/phpunit": "^9.5.3",
         "symfony/psr-http-message-bridge": "^2.1"
