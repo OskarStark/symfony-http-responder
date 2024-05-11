@@ -161,4 +161,26 @@ final class ResponderTest extends TestCase
 
         self::assertSame('inline; filename=invoice.pdf', $response->headers->get('Content-Disposition'));
     }
+
+    public function testUrl(): void
+    {
+        $this->urlGenerator
+            ->expects(self::once())
+            ->method('generate')
+            ->with('foo_bar', ['foo' => 'bar'], UrlGeneratorInterface::ABSOLUTE_URL)
+            ->willReturn('https://example.com/bar/foo');
+
+        self::assertSame('https://example.com/bar/foo', $this->responder->url('foo_bar', ['foo' => 'bar']));
+    }
+
+    public function testRootRelativeUrl(): void
+    {
+        $this->urlGenerator
+            ->expects(self::once())
+            ->method('generate')
+            ->with('foo_bar', ['foo' => 'bar'], UrlGeneratorInterface::ABSOLUTE_PATH)
+            ->willReturn('/bar/foo');
+
+        self::assertSame('/bar/foo', $this->responder->url('foo_bar', ['foo' => 'bar'], UrlGeneratorInterface::ABSOLUTE_PATH));
+    }
 }

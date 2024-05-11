@@ -123,4 +123,14 @@ final class Responder
 
         return $response;
     }
+
+     /**
+      * Returns the generated Url for the given route and parameters (absolute URL by default).
+      *
+     * @param array<array-key, scalar> $parameters
+     */
+    public function url(string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_URL): string
+    {
+        return $this->urlGenerator->generate($route, $parameters, $referenceType);
+    }
 }
