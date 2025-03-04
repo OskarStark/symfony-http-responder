@@ -22,9 +22,9 @@
     ],
     "require": {
         "php": ">=8.2",
-        "symfony/http-foundation": "^5.4 || ^6.3 || ^7.0",
-        "symfony/routing": "^5.4 || ^6.3 || ^7.0",
-        "symfony/serializer": "^5.4 || ^6.3 || ^7.0",
+        "symfony/http-foundation": "^6.3 || ^7.0",
+        "symfony/routing": "^6.3 || ^7.0",
+        "symfony/serializer": "^6.3 || ^7.0",
         "twig/twig": "^2.13 || ^3.0"
     },
     "require-dev": {
