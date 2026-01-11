@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace OskarStark\Symfony\Http\Tests;
 
 use OskarStark\Symfony\Http\Responder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,14 +41,16 @@ final class ResponderTest extends TestCase
         $this->responder = new Responder($this->twig, $this->urlGenerator, $this->serializer);
     }
 
-    public function testEmpty(): void
+    #[Test]
+    public function empty(): void
     {
         $response = $this->responder->empty();
 
         self::assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 
-    public function testEmptyStatus(): void
+    #[Test]
+    public function emptyStatus(): void
     {
         $response = $this->responder->empty(Response::HTTP_INTERNAL_SERVER_ERROR, [
             'X-Error-Identifier' => 'XYZ',
@@ -57,10 +60,11 @@ final class ResponderTest extends TestCase
         self::assertSame('XYZ', $response->headers->get('X-Error-Identifier'));
     }
 
-    public function testRender(): void
+    #[Test]
+    public function render(): void
     {
         $this->twig
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with('error.html.twig', ['message' => 'Not Found!'])
             ->willReturn('Not Found!');
@@ -73,10 +77,11 @@ final class ResponderTest extends TestCase
         self::assertSame('text/html; charset=UTF-8', $response->headers->get('Content-Type'));
     }
 
-    public function testRenderWithContentType(): void
+    #[Test]
+    public function renderWithContentType(): void
     {
         $this->twig
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with('content.json.twig', [])
             ->willReturn('{}');
@@ -91,7 +96,8 @@ final class ResponderTest extends TestCase
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    public function testRedirect(): void
+    #[Test]
+    public function redirect(): void
     {
         $response = $this->responder->redirect('/user/azjezz');
 
@@ -99,7 +105,8 @@ final class ResponderTest extends TestCase
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
     }
 
-    public function testResponse(): void
+    #[Test]
+    public function response(): void
     {
         $response = $this->responder->response('some content', Response::HTTP_FORBIDDEN, [
             'Content-Type' => 'text/plain',
@@ -110,10 +117,11 @@ final class ResponderTest extends TestCase
         self::assertSame('text/plain', $response->headers->get('Content-Type'));
     }
 
-    public function testRoute(): void
+    #[Test]
+    public function route(): void
     {
         $this->urlGenerator
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with('user_profile', ['username' => 'azjezz'])
             ->willReturn('/user/azjezz');
@@ -126,10 +134,11 @@ final class ResponderTest extends TestCase
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
     }
 
-    public function testJson(): void
+    #[Test]
+    public function json(): void
     {
         $this->serializer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('serialize')
             ->with(['title' => 'Hello, World!'], 'json', [
                 'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
@@ -141,21 +150,24 @@ final class ResponderTest extends TestCase
         self::assertSame('{"title": "Hello, World!"}', $response->getContent());
     }
 
-    public function testFileDefaultName(): void
+    #[Test]
+    public function fileDefaultName(): void
     {
         $response = $this->responder->file(__FILE__);
 
         self::assertSame('attachment; filename=ResponderTest.php', $response->headers->get('Content-Disposition'));
     }
 
-    public function testFileAttachment(): void
+    #[Test]
+    public function fileAttachment(): void
     {
         $response = $this->responder->file(__FILE__, 'invoice.pdf');
 
         self::assertSame('attachment; filename=invoice.pdf', $response->headers->get('Content-Disposition'));
     }
 
-    public function testFileInline(): void
+    #[Test]
+    public function fileInline(): void
     {
         $response = $this->responder->file(__FILE__, 'invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
 

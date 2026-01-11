@@ -1,6 +1,8 @@
 <?php
 
-use Ergebnis\PhpCsFixer;
+use Ergebnis\PhpCsFixer\Config\Factory;
+use Ergebnis\PhpCsFixer\Config\Rules;
+use Ergebnis\PhpCsFixer\Config\RuleSet\Php82;
 
 $header = <<<'HEADER'
 This file is part of oskarstark/symfony-http-responder.
@@ -12,48 +14,56 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 HEADER;
 
-$config = PhpCsFixer\Config\Factory::fromRuleSet(new PhpCsFixer\Config\RuleSet\Php81($header), [
-    'blank_line_before_statement' => [
-        'statements' => [
-            'break',
-            'continue',
-            'declare',
-            'default',
-            'do',
-            'exit',
-            'for',
-            'foreach',
-            'goto',
-            'if',
-            'include',
-            'include_once',
-            'require',
-            'require_once',
-            'return',
-            'switch',
-            'throw',
-            'try',
-            'while',
+$ruleSet = Php82::create()
+    ->withHeader($header)
+    ->withRules(Rules::fromArray([
+        'attribute_empty_parentheses' => [
+            'use_parentheses' => false,
         ],
-    ],
-    'concat_space' => [
-        'spacing' => 'none',
-    ],
-    'date_time_immutable' => false,
-    'error_suppression' => false,
-    'final_class' => false,
-    'mb_str_functions' => false,
-    'native_function_invocation' => [
-        'exclude' => [],
-        'include' => [
-            '@compiler_optimized',
+        'blank_line_before_statement' => [
+            'statements' => [
+                'break',
+                'continue',
+                'declare',
+                'default',
+                'do',
+                'exit',
+                'for',
+                'foreach',
+                'goto',
+                'if',
+                'include',
+                'include_once',
+                'require',
+                'require_once',
+                'return',
+                'switch',
+                'throw',
+                'try',
+                'while',
+            ],
         ],
-        'scope' => 'all',
-        'strict' => false,
-    ],
-    'php_unit_internal_class' => false,
-    'php_unit_test_class_requires_covers' => false,
-]);
+        'concat_space' => [
+            'spacing' => 'none',
+        ],
+        'date_time_immutable' => false,
+        'error_suppression' => false,
+        'final_class' => false,
+        'mb_str_functions' => false,
+        'native_function_invocation' => [
+            'exclude' => [],
+            'include' => [
+                '@compiler_optimized',
+            ],
+            'scope' => 'all',
+            'strict' => false,
+        ],
+        'phpdoc_array_type' => false,
+        'php_unit_internal_class' => false,
+        'php_unit_test_class_requires_covers' => false,
+    ]));
+
+$config = Factory::fromRuleSet($ruleSet);
 
 $config->getFinder()
     ->in('src')

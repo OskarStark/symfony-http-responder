@@ -9,7 +9,7 @@ cs: vendor
 
 .PHONY: test
 test: vendor
-	php vendor/bin/phpunit -v
+	php vendor/bin/phpunit
 
 .PHONY: vendor
 vendor: composer.json composer.lock
