@@ -16,6 +16,7 @@ namespace OskarStark\Symfony\Http\Tests;
 
 use OskarStark\Symfony\Http\Psr7Responder;
 use OskarStark\Symfony\Http\Responder;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -47,18 +48,20 @@ final class Psr7ResponderTest extends TestCase
         $this->psr7Responder = new Psr7Responder($this->responder, $this->psrHttpFactory);
     }
 
-    public function testEmpty(): void
+    #[Test]
+    public function empty(): void
     {
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(Response::class))
             ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->empty();
     }
 
-    public function testRender(): void
+    #[Test]
+    public function render(): void
     {
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(Response::class))
             ->willReturn($this->createMock(ResponseInterface::class));
@@ -69,23 +72,25 @@ final class Psr7ResponderTest extends TestCase
         );
     }
 
-    public function testRedirect(): void
+    #[Test]
+    public function redirect(): void
     {
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(RedirectResponse::class))
             ->willReturn($this->createMock(ResponseInterface::class));
         $this->psr7Responder->redirect('/user/kpicaza');
     }
 
-    public function testRoute(): void
+    #[Test]
+    public function route(): void
     {
         $this->urlGenerator
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('generate')
             ->with('user_profile', ['username' => 'kpicaza'])
             ->willReturn('/user/kpicaza');
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(RedirectResponse::class))
             ->willReturn($this->createMock(ResponseInterface::class));
@@ -94,9 +99,10 @@ final class Psr7ResponderTest extends TestCase
         ]);
     }
 
-    public function testResponse(): void
+    #[Test]
+    public function response(): void
     {
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(Response::class))
             ->willReturn($this->createMock(ResponseInterface::class));
@@ -106,16 +112,17 @@ final class Psr7ResponderTest extends TestCase
         ]);
     }
 
-    public function testJson(): void
+    #[Test]
+    public function json(): void
     {
         $this->serializer
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('serialize')
             ->with(['title' => 'Hello, World!'], 'json', [
                 'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
             ])
             ->willReturn('{"title": "Hello, World!"}');
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(JsonResponse::class))
             ->willReturn($this->createMock(ResponseInterface::class));
@@ -123,9 +130,10 @@ final class Psr7ResponderTest extends TestCase
         $this->psr7Responder->json(['title' => 'Hello, World!']);
     }
 
-    public function testFile(): void
+    #[Test]
+    public function file(): void
     {
-        $this->psrHttpFactory->expects(self::once())
+        $this->psrHttpFactory->expects($this->once())
             ->method('createResponse')
             ->with(self::isInstanceOf(BinaryFileResponse::class))
             ->willReturn($this->createMock(ResponseInterface::class));
