@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace OskarStark\Symfony\Http;
 
 use Psr\Http\Message\ResponseInterface;
-use SplFileInfo;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -109,7 +108,7 @@ final class Psr7Responder
     /**
      * Returns a BinaryFileResponse object with original or customized file name and disposition header.
      */
-    public function file(SplFileInfo|string $file, ?string $filename = null, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): ResponseInterface
+    public function file(\SplFileInfo|string $file, ?string $filename = null, string $disposition = ResponseHeaderBag::DISPOSITION_ATTACHMENT): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse(
             $this->responder->file($file, $filename, $disposition),

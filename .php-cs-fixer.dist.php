@@ -59,6 +59,7 @@ $ruleSet = Php82::create()
             'strict' => false,
         ],
         'phpdoc_array_type' => false,
+        'phpdoc_list_type' => false,
         'php_unit_internal_class' => false,
         'php_unit_test_class_requires_covers' => false,
     ]));
