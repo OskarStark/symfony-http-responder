@@ -31,6 +31,7 @@
         "ergebnis/php-cs-fixer-config": "^6.0",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^10.5",
+        "rector/rector": "^2.3",
         "symfony/psr-http-message-bridge": "^2.1"
     },
     "suggest": {

@@ -31,21 +31,18 @@ use Twig\Environment;
 
 final class Psr7ResponderTest extends TestCase
 {
-    private MockObject $twig;
     private MockObject $serializer;
     private MockObject $urlGenerator;
     private MockObject $psrHttpFactory;
-    private Responder $responder;
     private Psr7Responder $psr7Responder;
 
     protected function setUp(): void
     {
-        $this->twig = $this->createMock(Environment::class);
         $this->serializer = $this->createMock(SerializerInterface::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->psrHttpFactory = $this->createMock(PsrHttpFactory::class);
-        $this->responder = new Responder($this->twig, $this->urlGenerator, $this->serializer);
-        $this->psr7Responder = new Psr7Responder($this->responder, $this->psrHttpFactory);
+        $responder = new Responder($this->createMock(Environment::class), $this->urlGenerator, $this->serializer);
+        $this->psr7Responder = new Psr7Responder($responder, $this->psrHttpFactory);
     }
 
     #[Test]
