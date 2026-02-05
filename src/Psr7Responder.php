@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Twig\Error\Error as TwigError;
 
-final class Psr7Responder
+final readonly class Psr7Responder
 {
     public function __construct(
         private Responder $responder,

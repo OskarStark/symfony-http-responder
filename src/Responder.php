@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
 use Twig\Error\Error as TwigError;
 
-final class Responder
+final readonly class Responder
 {
     public function __construct(
         private Environment $twig,

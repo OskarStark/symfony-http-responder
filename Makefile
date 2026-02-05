@@ -7,6 +7,10 @@ phpstan: vendor
 cs: vendor
 	php vendor/bin/php-cs-fixer fix --diff --verbose
 
+.PHONY: rector
+rector: vendor
+	symfony php vendor/bin/rector
+
 .PHONY: test
 test: vendor
 	php vendor/bin/phpunit
